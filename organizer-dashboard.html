@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizer Dashboard - Community Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="index.html" style="text-decoration: none; color: inherit;">Community Hub</a></h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="events.html">All Events</a>
+                <div class="user-menu">
+                    <span id="userGreeting">Welcome, Organizer!</span>
+                    <div class="dropdown">
+                        <a href="create-event.html" class="dropdown-item">Create Event</a>
+                        <a href="#" id="logoutButton" class="dropdown-item">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Dashboard Header -->
+        <section class="dashboard-header">
+            <div class="header-content">
+                <h1>Organizer Dashboard</h1>
+                <p>Manage your events and track performance</p>
+            </div>
+            <a href="create-event.html" class="cta-button primary">
+                + Create New Event
+            </a>
+        </section>
+
+        <!-- Quick Stats -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon total">📅</div>
+                <div class="stat-info">
+                    <h3 id="totalEvents">0</h3>
+                    <p>Total Events</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon published">✅</div>
+                <div class="stat-info">
+                    <h3 id="publishedEvents">0</h3>
+                    <p>Published</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon draft">📝</div>
+                <div class="stat-info">
+                    <h3 id="draftEvents">0</h3>
+                    <p>Drafts</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon views">👁️</div>
+                <div class="stat-info">
+                    <h3 id="totalViews">0</h3>
+                    <p>Total Views</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <div class="dashboard-content">
+            <!-- Events Management -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Your Events</h2>
+                    <div class="section-actions">
+                        <select id="eventFilter" class="filter-select">
+                            <option value="all">All Events</option>
+                            <option value="published">Published</option>
+                            <option value="draft">Drafts</option>
+                            <option value="past">Past Events</option>
+                        </select>
+                        <input type="text" id="eventSearch" placeholder="Search events..." class="search-input">
+                    </div>
+                </div>
+
+                <div class="events-table-container">
+                    <table class="events-table">
+                        <thead>
+                            <tr>
+                                <th>Event Title</th>
+                                <th>Date & Time</th>
+                                <th>Status</th>
+                                <th>Views</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="eventsTableBody">
+                            <!-- Events will be loaded here -->
+                        </tbody>
+                    </table>
+                    <div id="noEventsMessage" class="no-events-message">
+                        <p>No events found. <a href="create-event.html">Create your first event!</a></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent Activity -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2>Recent Activity</h2>
+                </div>
+                <div class="activity-list" id="activityList">
+                    <!-- Activity items will be loaded here -->
+                </div>
+            </section>
+        </div>
+
+        <!-- Quick Actions Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-card">
+                <h3>Quick Actions</h3>
+                <div class="quick-actions">
+                    <a href="create-event.html" class="quick-action">
+                        <span class="action-icon">➕</span>
+                        <span class="action-text">Create Event</span>
+                    </a>
+                    <a href="events.html" class="quick-action">
+                        <span class="action-icon">👀</span>
+                        <span class="action-text">View Public Site</span>
+                    </a>
+                    <button class="quick-action" id="exportEvents">
+                        <span class="action-icon">📤</span>
+                        <span class="action-text">Export Events</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <h3>Upcoming Events</h3>
+                <div class="upcoming-events" id="upcomingEvents">
+                    <!-- Upcoming events will be loaded here -->
+                </div>
+            </div>
+
+            <div class="sidebar-card">
+                <h3>Performance Tips</h3>
+                <div class="tips-list">
+                    <div class="tip-item">
+                        <strong>Add high-quality images</strong>
+                        <p>Events with images get 3x more views</p>
+                    </div>
+                    <div class="tip-item">
+                        <strong>Write detailed descriptions</strong>
+                        <p>Help attendees know what to expect</p>
+                    </div>
+                    <div class="tip-item">
+                        <strong>Share on social media</strong>
+                        <p>Increase visibility for your events</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Delete Event</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete "<span id="deleteEventTitle"></span>"?</p>
+                <p class="warning-text">This action cannot be undone.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="cancelDelete">Cancel</button>
+                <button class="btn-danger" id="confirmDelete">Delete Event</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Community Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="js/dashboard.js"></script>
+    <script src="js/event-manager.js"></script>
+</body>
+</html>

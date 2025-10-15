@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Hub - Discover Local Events</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>Community Hub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active">Home</a>
+                <a href="events.html">All Events</a>
+                <a href="organizer-login.html">For Organizers</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Discover Amazing Local Events</h2>
+                <p>Find workshops, concerts, meetups, and more in your community</p>
+                <a href="events.html" class="cta-button">Explore Events</a>
+            </div>
+        </section>
+
+        <section class="featured-events">
+            <h3>Upcoming Events</h3>
+            <div id="featuredEvents" class="events-grid">
+                <!-- Events will be loaded by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Community Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/event-manager.js"></script>
+</body>
+</html>

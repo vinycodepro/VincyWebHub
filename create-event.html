@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event - Community Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="index.html" style="text-decoration: none; color: inherit;">Community Hub</a></h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="events.html">All Events</a>
+                <div class="user-menu">
+                    <span id="userGreeting">Welcome, Organizer!</span>
+                    <div class="dropdown">
+                        <a href="organizer-dashboard.html" class="dropdown-item">Dashboard</a>
+                        <a href="#" id="logoutButton" class="dropdown-item">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="create-event-container">
+        <!-- Header -->
+        <section class="create-event-header">
+            <div class="header-content">
+                <h1 id="pageTitle">Create New Event</h1>
+                <p>Fill out the form below to list your event on Community Hub</p>
+            </div>
+            <div class="header-actions">
+                <a href="organizer-dashboard.html" class="btn-secondary">← Back to Dashboard</a>
+            </div>
+        </section>
+
+        <!-- Event Form -->
+        <form id="eventForm" class="event-form">
+            <div class="form-layout">
+                <!-- Main Form Content -->
+                <div class="form-main">
+                    <!-- Basic Information -->
+                    <section class="form-section">
+                        <h2>Basic Information</h2>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="eventTitle">Event Title *</label>
+                                <input type="text" id="eventTitle" name="title" required 
+                                       placeholder="Enter a clear and descriptive event title">
+                                <div class="help-text">Make it engaging and descriptive</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="eventCategory">Category *</label>
+                                <select id="eventCategory" name="category" required>
+                                    <option value="">Select a category</option>
+                                    <option value="Music">Music</option>
+                                    <option value="Workshop">Workshop</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Networking">Networking</option>
+                                    <option value="Food & Drink">Food & Drink</option>
+                                    <option value="Arts & Culture">Arts & Culture</option>
+                                    <option value="Business">Business</option>
+                                    <option value="Technology">Technology</option>
+                                    <option value="Health & Wellness">Health & Wellness</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="eventPrice">Price *</label>
+                                <select id="eventPrice" name="price" required>
+                                    <option value="">Select price type</option>
+                                    <option value="Free">Free</option>
+                                    <option value="Donation-based">Donation-based</option>
+                                    <option value="Paid">Paid Event</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="priceAmountGroup" style="display: none;">
+                                <label for="priceAmount">Ticket Price *</label>
+                                <div class="price-input">
+                                    <span class="currency-symbol">$</span>
+                                    <input type="number" id="priceAmount" name="priceAmount" 
+                                           min="0" step="0.01" placeholder="0.00">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Date & Time -->
+                    <section class="form-section">
+                        <h2>Date & Time</h2>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="eventDate">Start Date *</label>
+                                <input type="date" id="eventDate" name="date" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="eventTime">Start Time *</label>
+                                <input type="time" id="eventTime" name="time" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="eventEndDate">End Date</label>
+                                <input type="date" id="eventEndDate" name="endDate">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="eventEndTime">End Time</label>
+                                <input type="time" id="eventEndTime" name="endTime">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="isRecurring" name="isRecurring">
+                                <span class="checkmark"></span>
+                                This is a recurring event
+                            </label>
+                        </div>
+
+                        <div id="recurringOptions" style="display: none;">
+                            <div class="form-group">
+                                <label for="recurrencePattern">Recurrence Pattern</label>
+                                <select id="recurrencePattern" name="recurrencePattern">
+                                    <option value="weekly">Weekly</option>
+                                    <option value="biweekly">Bi-weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Location -->
+                    <section class="form-section">
+                        <h2>Location</h2>
+                        <div class="form-group">
+                            <label for="eventLocation">Venue Name *</label>
+                            <input type="text" id="eventLocation" name="location" required 
+                                   placeholder="e.g., Community Center, Park Name, etc.">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventAddress">Full Address *</label>
+                            <input type="text" id="eventAddress" name="address" required 
+                                   placeholder="Street address, city, state, zip code">
+                            <button type="button" id="locateOnMap" class="btn-sm btn-secondary">
+                                📍 Locate on Map
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Map Preview</label>
+                            <div id="locationMap" class="location-map-preview">
+                                <div class="map-placeholder">
+                                    Enter address to see map preview
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Venue Type</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="venueType" value="indoor">
+                                    <span class="checkmark"></span>
+                                    Indoor
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="venueType" value="outdoor">
+                                    <span class="checkmark"></span>
+                                    Outdoor
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="venueType" value="virtual">
+                                    <span class="checkmark"></span>
+                                    Virtual/Online
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Description -->
+                    <section class="form-section">
+                        <h2>Description</h2>
+                        <div class="form-group">
+                            <label for="eventDescription">Short Description *</label>
+                            <textarea id="eventDescription" name="description" required 
+                                      placeholder="Brief description that appears in event listings (max 200 characters)"
+                                      maxlength="200" rows="3"></textarea>
+                            <div class="char-counter">
+                                <span id="descCharCount">0</span>/200 characters
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventFullDescription">Full Description</label>
+                            <textarea id="eventFullDescription" name="fullDescription" 
+                                      placeholder="Detailed description with agenda, what to bring, etc. (supports basic formatting with new lines)"
+                                      rows="8"></textarea>
+                            <div class="help-text">
+                                Use empty lines to separate paragraphs. Include agenda, what to expect, what to bring, etc.
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Event Image -->
+                    <section class="form-section">
+                        <h2>Event Image</h2>
+                        <div class="image-upload-area" id="imageUploadArea">
+                            <div class="upload-placeholder">
+                                <div class="upload-icon">📷</div>
+                                <p>Click to upload event image</p>
+                                <span class="upload-hint">Recommended: 1200×600px JPG or PNG</span>
+                            </div>
+                            <input type="file" id="eventImage" name="image" accept="image/*" 
+                                   style="display: none;">
+                            <div class="image-preview" id="imagePreview" style="display: none;">
+                                <img id="previewImage" src="" alt="Preview">
+                                <button type="button" class="remove-image" id="removeImage">×</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- External Links -->
+                    <section class="form-section">
+                        <h2>External Links</h2>
+                        <div class="form-group">
+                            <label for="eventWebsite">Website URL</label>
+                            <input type="url" id="eventWebsite" name="website" 
+                                   placeholder="https://example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventTicketLink">Ticket/Registration Link</label>
+                            <input type="url" id="eventTicketLink" name="ticketLink" 
+                                   placeholder="https://tickets.example.com/your-event">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventSocialLink">Social Media Link</label>
+                            <input type="url" id="eventSocialLink" name="socialLink" 
+                                   placeholder="https://facebook.com/yourevent">
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="form-sidebar">
+                    <!-- Publish Card -->
+                    <div class="sidebar-card">
+                        <h3>Publish</h3>
+                        <div class="form-group">
+                            <label for="eventStatus">Status</label>
+                            <select id="eventStatus" name="status">
+                                <option value="draft">Save as Draft</option>
+                                <option value="published">Publish Now</option>
+                            </select>
+                        </div>
+
+                        <div class="publish-actions">
+                            <button type="submit" class="btn-primary full-width">
+                                <span id="submitButtonText">Create Event</span>
+                            </button>
+                            <button type="button" id="saveDraft" class="btn-secondary full-width">
+                                Save Draft
+                            </button>
+                            <button type="button" id="previewEvent" class="btn-secondary full-width">
+                                Preview
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Event Details Card -->
+                    <div class="sidebar-card">
+                        <h3>Event Details</h3>
+                        <div class="event-meta-preview">
+                            <div class="meta-item">
+                                <strong>Category:</strong>
+                                <span id="previewCategory">-</span>
+                            </div>
+                            <div class="meta-item">
+                                <strong>Date:</strong>
+                                <span id="previewDate">-</span>
+                            </div>
+                            <div class="meta-item">
+                                <strong>Time:</strong>
+                                <span id="previewTime">-</span>
+                            </div>
+                            <div class="meta-item">
+                                <strong>Location:</strong>
+                                <span id="previewLocation">-</span>
+                            </div>
+                            <div class="meta-item">
+                                <strong>Price:</strong>
+                                <span id="previewPrice">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Help Card -->
+                    <div class="sidebar-card">
+                        <h3>Tips</h3>
+                        <div class="tips-list">
+                            <div class="tip-item">
+                                <strong>Clear Title</strong>
+                                <p>Make your event title descriptive and engaging</p>
+                            </div>
+                            <div class="tip-item">
+                                <strong>Quality Image</strong>
+                                <p>Use high-quality images to attract more attendees</p>
+                            </div>
+                            <div class="tip-item">
+                                <strong>Detailed Description</strong>
+                                <p>Include all important details and what to expect</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <!-- Preview Modal -->
+    <div id="previewModal" class="modal hidden">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Event Preview</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="eventPreviewContent">
+                    <!-- Preview content will be loaded here -->
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" id="closePreview">Close Preview</button>
+                <button class="btn-primary" onclick="document.getElementById('eventForm').requestSubmit()">
+                    Looks Good - Save Event
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Community Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/create-event.js"></script>
+    <script src="js/event-manager.js"></script>
+</body>
+</html>

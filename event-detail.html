@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details - Community Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1><a href="index.html" style="text-decoration: none; color: inherit;">Community Hub</a></h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="events.html">All Events</a>
+                <a href="organizer-login.html">For Organizers</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="event-detail-container">
+            <!-- Back to Events -->
+            <div class="back-nav">
+                <a href="events.html" class="back-link">← Back to All Events</a>
+            </div>
+
+            <!-- Event Header -->
+            <section class="event-header">
+                <div class="event-hero-image" id="eventHeroImage">
+                    <!-- Image will be loaded by JavaScript -->
+                </div>
+                <div class="event-basic-info">
+                    <div class="event-category-badge" id="eventCategory"></div>
+                    <h1 id="eventTitle">Event Title</h1>
+                    <div class="event-meta">
+                        <div class="meta-item">
+                            <span class="meta-icon">📅</span>
+                            <span id="eventDateTime">Date and Time</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">📍</span>
+                            <span id="eventLocation">Location</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">💰</span>
+                            <span id="eventPrice">Price</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="meta-icon">👤</span>
+                            <span id="eventOrganizer">Organizer</span>
+                        </div>
+                    </div>
+                    <div class="event-actions">
+                        <a href="#" id="externalLink" class="cta-button primary" target="_blank">Get Tickets</a>
+                        <button id="shareButton" class="cta-button secondary">Share Event</button>
+                        <button id="saveButton" class="cta-button secondary">Save Event</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Content -->
+            <section class="event-content">
+                <div class="event-details">
+                    <div class="detail-section">
+                        <h3>About This Event</h3>
+                        <div id="eventDescription" class="event-description">
+                            <!-- Description will be loaded by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3>Location & Directions</h3>
+                        <div class="location-details">
+                            <div id="eventAddress" class="event-address"></div>
+                            <div id="map" class="event-map"></div>
+                            <div class="transport-options">
+                                <h4>Getting There</h4>
+                                <div class="transport-icons">
+                                    <span class="transport-icon" title="Public Transit">🚌</span>
+                                    <span class="transport-icon" title="Parking Available">🅿️</span>
+                                    <span class="transport-icon" title="Bike Parking">🚲</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3>Organizer Information</h3>
+                        <div class="organizer-info">
+                            <div id="organizerDetails" class="organizer-details"></div>
+                            <a href="#" id="organizerContact" class="contact-link">Contact Organizer</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="event-sidebar">
+                    <div class="sidebar-card">
+                        <h4>Event Details</h4>
+                        <div class="detail-list">
+                            <div class="detail-item">
+                                <strong>Date:</strong>
+                                <span id="sidebarDate"></span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Time:</strong>
+                                <span id="sidebarTime"></span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Category:</strong>
+                                <span id="sidebarCategory"></span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Price:</strong>
+                                <span id="sidebarPrice"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h4>Share This Event</h4>
+                        <div class="share-buttons">
+                            <button class="share-btn facebook" data-platform="facebook">Facebook</button>
+                            <button class="share-btn twitter" data-platform="twitter">Twitter</button>
+                            <button class="share-btn linkedin" data-platform="linkedin">LinkedIn</button>
+                            <button class="share-btn copy-link" data-platform="copy">Copy Link</button>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h4>Similar Events</h4>
+                        <div id="similarEvents" class="similar-events">
+                            <!-- Similar events will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Share Modal -->
+    <div id="shareModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Share This Event</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Share this event with your friends and community!</p>
+                <div class="share-options">
+                    <input type="text" id="shareUrl" readonly class="share-url">
+                    <button id="copyUrl" class="cta-button">Copy Link</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Community Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="js/event-detail.js"></script>
+    <script src="js/event-manager.js"></script>
+</body>
+</html>

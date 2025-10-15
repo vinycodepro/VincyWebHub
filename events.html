@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Events - Community Hub</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>Community Hub</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="events.html" class="active">All Events</a>
+                <a href="organizer-login.html">For Organizers</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h2>Discover Local Events</h2>
+                <p>Find the perfect event for your interests</p>
+            </div>
+        </section>
+
+        <!-- Filters Section -->
+        <section class="filters">
+            <div class="container">
+                <div class="filter-group">
+                    <!-- Date Filters -->
+                    <div class="filter-section">
+                        <h4>When</h4>
+                        <div class="filter-buttons">
+                            <button class="filter-btn active" data-filter="date" data-value="all">All Upcoming</button>
+                            <button class="filter-btn" data-filter="date" data-value="week">This Week</button>
+                            <button class="filter-btn" data-filter="date" data-value="month">This Month</button>
+                            <button class="filter-btn" data-filter="date" data-value="past">Past Events</button>
+                        </div>
+                    </div>
+
+                    <!-- Category Filters -->
+                    <div class="filter-section">
+                        <h4>Category</h4>
+                        <div class="filter-buttons" id="categoryFilters">
+                            <!-- Categories will be loaded by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Search -->
+                    <div class="filter-section">
+                        <h4>Search</h4>
+                        <input type="text" id="searchInput" class="search-bar" placeholder="Search events...">
+                    </div>
+
+                    <!-- Sorting -->
+                    <div class="filter-section">
+                        <h4>Sort By</h4>
+                        <select id="sortSelect" class="sort-select">
+                            <option value="date-asc">Date (Soonest First)</option>
+                            <option value="date-desc">Date (Latest First)</option>
+                            <option value="title-asc">Title (A-Z)</option>
+                            <option value="title-desc">Title (Z-A)</option>
+                        </select>
+                    </div>
+
+                    <!-- View Toggle -->
+                    <div class="filter-section">
+                        <h4>View</h4>
+                        <div class="view-toggle">
+                            <button id="gridView" class="view-btn active">Grid</button>
+                            <button id="listView" class="view-btn">List</button>
+                            <button id="calendarView" class="view-btn">Calendar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Events Display Area -->
+        <section class="events-display">
+            <div class="container">
+                <div id="eventsContainer" class="events-grid">
+                    <!-- Events will be loaded here by JavaScript -->
+                </div>
+                <div id="calendarContainer" class="calendar-view hidden">
+                    <!-- Calendar will be loaded here -->
+                </div>
+                <div id="noEventsMessage" class="no-events hidden">
+                    <p>No events found matching your criteria.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Community Hub. All rights reserved.</p>
+    </footer>
+
+    <script src="js/events.js"></script>
+    <script src="js/event-manager.js"></script>
+</body>
+</html>
